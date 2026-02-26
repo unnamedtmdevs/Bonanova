@@ -1,24 +1,20 @@
-//
-//  ContentView.swift
-//  Bonanova
-//
-//  Created by Simon Bakhanets on 26.02.2026.
-//
-
 import SwiftUI
 
 struct ContentView: View {
+    @AppStorage("hasOnboarded") private var hasOnboarded = false
+
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        if hasOnboarded {
+            HomeView()
+        } else {
+            OnboardingView()
         }
-        .padding()
     }
 }
 
 #Preview {
     ContentView()
+        .environmentObject(AppContainer().storage)
+        .environmentObject(AppContainer().plannerVM)
+        .environmentObject(AppContainer().goalVM)
 }
